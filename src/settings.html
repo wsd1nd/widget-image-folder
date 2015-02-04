@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Folder Settings</title>
+
+  <!-- build:css css/settings.min.css -->
+  <link rel="stylesheet" href="components/common-style/dist/css/rise.min.css">
+  <!-- endbuild -->
+
+  <style type="text/css">
+    body, html {
+      background: transparent;
+    }
+
+    .text-validation {
+      margin-top: -15px;
+    }
+  </style>
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
+</head>
+<body ng-app="risevision.widget.imageFolder.settings" ng-controller="settingsController">
+  <div class="widget">
+    <div class="overlay"></div>
+    <div class="settings">
+      <div class="settings-center">
+        <div class="wrapper container modal-content" ng-controller="imageFolderSettingsController">
+          <div class="modal-header">
+            <h2 id="settings-title"> {{"image-folder.settings" | translate }}
+              <button id="settings-close" type="button" class="close" ng-click="closeSettings()">
+                <span>&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+            </h2>
+            <div class="sticky-wrapper">
+              <widget-button-toolbar
+                save="saveSettings()" cancel="closeSettings()" disable-save="settingsForm.$invalid"
+                contribute="https://github.com/Rise-Vision/widget-image-folder"></widget-button-toolbar>
+            </div>
+          </div>
+          <form role="form" name="settingsForm">
+            <url-field name="urlField" url="settings.additionalParams.url" company-id="{{settings.params.companyId}}"
+              ng-model="urlField" valid></url-field>
+            <p id="folder-error" class="text-danger text-validation" ng-show="!isFolder">
+              Please select a folder from Storage.
+            </p>
+            <div class="form-group" ng-show="settingsForm.urlField.$valid && isFolder">
+              <div class="checkbox">
+                <label for="scale-to-fit">
+                  <input type="checkbox" ng-model="settings.additionalParams.scaleToFit">{{"widgets.scale-to-fit" | translate}}
+                </label>
+              </div>
+            </div>
+            <div class="form-group" ng-show="settingsForm.urlField.$valid && isFolder">
+              <position-setting position="settings.additionalParams.position"></position-setting>
+            </div>
+            <div class="form-group" ng-show="settingsForm.urlField.$valid && isFolder">
+              <label for="time-format">{{"image-folder.order.label" | translate}}</label>
+              <div class="row">
+                <div class="col-xs-6 col-md-3">
+                  <select name="order" ng-model="settings.additionalParams.order" class="form-control">
+                    <option value="alpha-asc">{{"image-folder.order.alpha-asc" | translate}}</option>
+                    <option value="alpha-desc">{{"image-folder.order.alpha-desc" | translate}}</option>
+                    <option value="date-asc">{{"image-folder.order.date-asc" | translate}} &uarr;</option>
+                    <option value="date-desc">{{"image-folder.order.date-desc" | translate}} &darr;</option>
+                    <option value="random">{{"image-folder.order.random" | translate}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" ng-show="settingsForm.urlField.$valid && isFolder">
+              <label>{{"image-folder.duration" | translate}}</label>
+              <div class="row">
+                <div class="col-xs-6 col-md-3">
+                  <div class="input-group">
+                    <input type="text" class="form-control" ng-model="settings.additionalParams.duration">
+                    <span class="input-group-addon">{{"common.units.seconds" | translate}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" ng-show="settingsForm.urlField.$valid && isFolder">
+              <label>{{"image-folder.pause" | translate}}</label>
+              <div class="row">
+                <div class="col-xs-6 col-md-3">
+                  <div class="input-group">
+                    <input type="text" class="form-control" ng-model="settings.additionalParams.pause">
+                    <span class="input-group-addon">{{"common.units.seconds" | translate}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" ng-show="settingsForm.urlField.$valid && isFolder">
+              <div class="checkbox">
+                <label for="auto-hide">
+                  <input type="checkbox" ng-model="settings.additionalParams.autoHide">{{"image-folder.auto-hide" | translate}}
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- build:js js/settings.min.js -->
+  <!-- Translation -->
+  <script src="components/angular-translate/angular-translate.js"></script>
+  <script src="components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+  <script src="components/rv-common-i18n/dist/i18n.js"></script>
+
+  <!-- URL Field -->
+  <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="components/component-storage-selector/dist/storage-selector.js"></script>
+  <script src="components/widget-settings-ui-components/dist/js/angular/tooltip.js"></script>
+  <script src="components/widget-settings-ui-components/dist/js/angular/url-field.js"></script>
+
+  <!-- Position Setting -->
+  <script src="components/widget-settings-ui-components/dist/js/angular/position-setting.js"></script>
+
+  <!-- Image Settings -->
+  <script src="components/widget-settings-ui-components/dist/js/angular/widget-button-toolbar.js"></script>
+  <script src="config/config.js"></script>
+  <script src="settings/settings-app.js"></script>
+  <script src="settings/ctr-image-folder-settings.js"></script>
+
+  <script src="components/widget-settings-ui-core/dist/widget-settings-ui-core.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:e2egadgets -->
+  <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
+  <!-- endbuild -->
+
+  <!-- Get from Bower if needed. -->
+  <script src="//s3.amazonaws.com/rise-common/scripts/i18next/i18next.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "widget-image-folder",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Rise-Vision/widget-image-folder",
+  "description": "Rise Vision Image Folder Widget",
+  "main": "src/settings.html",
+  "keywords": [
+    "rise-vision",
+    "widget",
+    "image"
+  ],
+  "license": "GPLv3",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "src/components",
+    "test"
+  ],
+  "devDependencies": {
+    "angular-mocks": "1.2.18",
+    "q": "1.0.1"
+  },
+  "dependencies": {
+    "angular": "1.2.18",
+    "angular-route": "1.2.18",
+    "rise-storage": "https://github.com/Rise-Vision/web-component-rise-storage.git#~0.1.2",
+    "widget-settings-ui-components": "https://github.com/Rise-Vision/widget-settings-ui-components.git#0.1.6",
+    "widget-settings-ui-core": "https://github.com/Rise-Vision/widget-settings-ui-core.git#~0.1.8",
+    "webcomponentsjs": "~0.5.4"
+  },
+  "resolutions": {
+    "angular-translate": "~2.4.2",
+    "angular-translate-loader-static-files": "~2.4.2",
+    "common-style": "1.1.9"
+  }
+}
