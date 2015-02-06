@@ -5,18 +5,17 @@
   window.gadget.settings = {
     "params": {},
     "additionalParams": {
-      "url": "https://storage.googleapis.com/risemedialibrary-b428b4e8-c8b9-41d5-8a10-b4193c789443/Ignite_Me_Book_Cover.jpg",
+      "url": "https://www.googleapis.com/storage/v1/b/risemedialibrary-abc123/o?prefix=images%2F",
       "storage": {
-        "folder": "",
-        "fileName": "Ignite_Me_Book_Cover.jpg"
+        "folder": "images/",
+        "fileName": ""
       },
-      "scaleToFit": false,
+      "scaleToFit": true,
       "position": "top-left",
       "order": "alpha-asc",
       "duration": 10,
       "pause": 10,
       "autoHide": false
-      }
     }
   };
 })(window);

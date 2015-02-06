@@ -12,6 +12,19 @@
     return false;
   };
 
-  gadgets.rpc.register("rsparam_set_" + id, RiseVision.ImageFolder.getAdditionalParams);
-  gadgets.rpc.call("", "rsparam_get", null, id, ["additionalParams"]);
+  function play() {
+    RiseVision.ImageFolder.play();
+  }
+
+  function pause() {
+    RiseVision.ImageFolder.pause();
+  }
+
+  $(document).ready(function() {
+    gadgets.rpc.register("rscmd_play_" + id, play);
+    gadgets.rpc.register("rscmd_pause_" + id, pause);
+
+    gadgets.rpc.register("rsparam_set_" + id, RiseVision.ImageFolder.setParams);
+    gadgets.rpc.call("", "rsparam_get", null, id, ["additionalParams"]);
+  });
 })(window, document, gadgets);
