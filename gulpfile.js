@@ -88,6 +88,7 @@
   gulp.task("rise-storage", function() {
     return gulp.src([
       "src/components/webcomponentsjs/webcomponents.js",
+      "src/components/underscore/underscore*.*",
       "src/components/rise-storage/rise-storage.html",
       "src/components/polymer/**/*.*{html,js}",
       "src/components/core-ajax/core-ajax.html",
@@ -105,9 +106,8 @@
   // e2e testing
   gulp.task("html:e2e", factory.htmlE2E({
     files: ["./src/settings.html", "./src/widget.html"],
-    e2eUrl: "../test/data/storage.js",
-    e2eStorage: ["../node_modules/sinon/pkg/sinon.js", "../node_modules/sinon/pkg/sinon-server-1.12.2.js",
-      "../test/data/storage.js"]
+    e2eStorageMock: "../node_modules/widget-tester/mocks/rise-storage-mock.js",
+    e2eMockData: "../test/data/storage.js"
   }));
 
   gulp.task("e2e:server", ["config", "html:e2e"], factory.testServer());
