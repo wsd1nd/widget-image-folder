@@ -7,6 +7,7 @@ RiseVision.ImageFolder = (function (gadgets) {
 
   var params,
     storage = null,
+    slider = null,
     prefs = new gadgets.Prefs();
 
   /*
@@ -37,6 +38,11 @@ RiseVision.ImageFolder = (function (gadgets) {
     }
   }
 
+  function initSlider(urls) {
+    slider = new RiseVision.ImageFolder.Slider(params);
+    slider.init(urls);
+  }
+
   function ready() {
     gadgets.rpc.call("", "rsevent_ready", null, prefs.getString("id"), true,
       true, true, true, true);
@@ -47,11 +53,11 @@ RiseVision.ImageFolder = (function (gadgets) {
   }
 
   function play() {
-    storage.getSlider().play();
+    slider.play();
   }
 
   function pause() {
-    storage.getSlider().pause();
+    slider.pause();
   }
 
   function stop() {
@@ -64,6 +70,7 @@ RiseVision.ImageFolder = (function (gadgets) {
     "play": play,
     "pause": pause,
     "stop": stop,
-    "setParams": setParams
+    "setParams": setParams,
+    "initSlider": initSlider
   };
 })(gadgets);

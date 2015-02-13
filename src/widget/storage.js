@@ -4,8 +4,7 @@ RiseVision.ImageFolder = RiseVision.ImageFolder || {};
 RiseVision.ImageFolder.Storage = function (params) {
   "use strict";
 
-  var companyId = "",
-    slider = null;
+  var companyId = "";
 
   /*
    *  Private Methods
@@ -16,8 +15,7 @@ RiseVision.ImageFolder.Storage = function (params) {
       sortDirection = "";
 
     storage.addEventListener("rise-storage-response", function(e) {
-      slider = new RiseVision.ImageFolder.Slider(params);
-      slider.init(e.detail);
+      RiseVision.ImageFolder.initSlider(e.detail);
     });
 
     storage.setAttribute("companyId", companyId);
@@ -64,12 +62,7 @@ RiseVision.ImageFolder.Storage = function (params) {
     }
   }
 
-  function getSlider() {
-    return slider;
-  }
-
   return {
-    "getCompanyId": getCompanyId,
-    "getSlider": getSlider
+    "getCompanyId": getCompanyId
   };
 };
