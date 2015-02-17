@@ -42,7 +42,7 @@
             <url-field name="urlField" url="settings.additionalParams.url" company-id="{{settings.params.companyId}}"
               ng-model="urlField" valid></url-field>
             <p id="folder-error" class="text-danger text-validation" ng-show="!isFolder">
-              Please select a folder from Storage.
+              {{"image-folder.storage-error" | translate}}
             </p>
             <div class="form-group" ng-show="settingsForm.urlField.$valid && isFolder">
               <div class="checkbox">
