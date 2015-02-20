@@ -379,7 +379,7 @@ RiseVision.ImageFolder.Storage = function (params) {
 /* jshint ignore:start */
 var _gaq = _gaq || [];
 
-_gaq.push(['_setAccount', 'UA-57092159-3']);
+_gaq.push(['_setAccount', 'UA-57092159-5']);
 _gaq.push(['_trackPageview']);
 
 (function() {
