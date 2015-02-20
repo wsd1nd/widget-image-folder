@@ -39,8 +39,10 @@ RiseVision.ImageFolder = (function (gadgets) {
   }
 
   function initSlider(urls) {
-    slider = new RiseVision.ImageFolder.Slider(params);
-    slider.init(urls);
+    if (slider === null) {
+      slider = new RiseVision.ImageFolder.Slider(params);
+      slider.init(urls);
+    }
   }
 
   function ready() {
