@@ -161,6 +161,7 @@ RiseVision.ImageFolder.Slider = function (params) {
 
   /*
    *  Public Methods
+   *  TODO: Test what happens when folder isn't found.
    */
   function init(urls) {
     var tpBannerContainer = document.querySelector(".tp-banner-container"),
