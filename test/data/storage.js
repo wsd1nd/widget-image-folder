@@ -13,7 +13,7 @@
       "scaleToFit": true,
       "position": "top-left",
       "order": "alpha-asc",
-      "duration": 10,
+      "duration": 1,
       "pause": 10,
       "autoHide": false
     }

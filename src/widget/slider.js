@@ -1,3 +1,4 @@
+/* global _ */
 var RiseVision = RiseVision || {};
 RiseVision.ImageFolder = RiseVision.ImageFolder || {};
 
@@ -5,17 +6,21 @@ RiseVision.ImageFolder.Slider = function (params) {
   "use strict";
 
   var totalSlides = 0,
-    api = null,
+    $api = null,
+    currentUrls = null,
+    newUrls = null,
     navTimer = null,
     slideTimer = null,
     isLastSlide = false,
+    refreshSlider = false,
+    isLoading = true,
     isPaused = false,
     navTimeout = 3000;
 
   /*
    *  Private Methods
    */
-  function addSlides(urls) {
+  function addSlides() {
     var list = document.querySelector(".tp-banner ul"),
       fragment = document.createDocumentFragment(),
       slides = [],
@@ -23,9 +28,9 @@ RiseVision.ImageFolder.Slider = function (params) {
       image = null,
       position = "";
 
-    totalSlides = urls.length;
+    totalSlides = currentUrls.length;
 
-    urls.forEach(function(url) {
+    currentUrls.forEach(function(url) {
       slide = document.createElement("li");
       image = document.createElement("img");
 
@@ -89,6 +94,45 @@ RiseVision.ImageFolder.Slider = function (params) {
     list.appendChild(fragment);
   }
 
+  function onSlideChanged(data) {
+    if (isPaused) {
+      $api.revpause();
+    }
+    // Don't call "done" if user is interacting with the slideshow.
+    else {
+      if (isLastSlide) {
+        isLastSlide = false;
+        $api.revpause();
+        RiseVision.ImageFolder.done();
+
+        if (refreshSlider) {
+          // Destroy and recreate the slider if the URLs have changed.
+          if ($api) {
+            destroySlider();
+            init(newUrls);
+          }
+
+          refreshSlider = false;
+        }
+      }
+    }
+
+    if (data.slideIndex === totalSlides) {
+      isLastSlide = true;
+    }
+  }
+
+  function destroySlider() {
+    // Remove event handlers.
+    $("body").off("touchend");
+    $api.off("revolution.slide.onloaded");
+    $api.off("revolution.slide.onchange");
+
+    // Let the slider clean up after itself.
+    $api.revkill();
+    $api = null;
+  }
+
   // User has interacted with the slideshow.
   function handleUserActivity() {
     isPaused = true;
@@ -97,8 +141,8 @@ RiseVision.ImageFolder.Slider = function (params) {
     // Move to next slide and resume the slideshow after a delay.
     slideTimer = setTimeout(function() {
       isPaused = false;
-      api.revnext();
-      api.revresume();
+      $api.revnext();
+      $api.revresume();
     }, params.pause * 1000);
 
     hideNav();
@@ -119,9 +163,20 @@ RiseVision.ImageFolder.Slider = function (params) {
    *  Public Methods
    */
   function init(urls) {
-    addSlides(urls);
+    var tpBannerContainer = document.querySelector(".tp-banner-container"),
+      fragment = document.createDocumentFragment(),
+      tpBanner = document.createElement("div"),
+      ul = document.createElement("ul");
 
-    api = $(".tp-banner").revolution({
+    tpBanner.setAttribute("class", "tp-banner");
+    tpBanner.appendChild(ul);
+    fragment.appendChild(tpBanner);
+    tpBannerContainer.appendChild(fragment);
+
+    currentUrls = urls;
+    addSlides();
+
+    $api = $(".tp-banner").revolution({
       "delay": params.duration * 1000,
       "hideThumbs": 0,
       "hideTimerBar": "on",
@@ -131,28 +186,17 @@ RiseVision.ImageFolder.Slider = function (params) {
       "startheight": params.height
     });
 
-    api.bind("revolution.slide.onloaded", function() {
+    $api.on("revolution.slide.onloaded", function() {
       // Pause slideshow since it will autoplay and this is not configurable.
-      api.revpause();
-      RiseVision.ImageFolder.ready();
+      if (isLoading) {
+        $api.revpause();
+        isLoading = false;
+        RiseVision.ImageFolder.ready();
+      }
     });
 
-    api.bind("revolution.slide.onchange", function (e, data) {
-      if (isPaused) {
-        api.revpause();
-      }
-      // Don't call "done" if user is interacting with the slideshow.
-      else {
-        if (isLastSlide) {
-          isLastSlide = false;
-          api.revpause();
-          RiseVision.ImageFolder.done();
-        }
-      }
-
-      if (data.slideIndex === totalSlides) {
-        isLastSlide = true;
-      }
+    $api.on("revolution.slide.onchange", function (e, data) {
+      onSlideChanged(data);
     });
 
     // Swipe the slider.
@@ -170,20 +214,30 @@ RiseVision.ImageFolder.Slider = function (params) {
   }
 
   function play() {
-    if (api) {
-      api.revresume();
+    if ($api) {
+      $api.revresume();
     }
   }
 
   function pause() {
-    if (api) {
-      api.revpause();
+    if ($api) {
+      $api.revpause();
+    }
+  }
+
+  function refresh(urls) {
+    // Start preloading images right away.
+    if (!_.isEqual(currentUrls, urls)) {
+      RiseVision.Common.Utilities.preloadImages(urls);
+      newUrls = urls;
+      refreshSlider = true;
     }
   }
 
   return {
     "init": init,
     "play": play,
-    "pause": pause
+    "pause": pause,
+    "refresh": refresh
   };
 };
