@@ -45,6 +45,12 @@ RiseVision.ImageFolder = (function (gadgets) {
     }
   }
 
+  function refreshSlider(urls) {
+    if (slider !== null) {
+      slider.refresh(urls);
+    }
+  }
+
   function ready() {
     gadgets.rpc.call("", "rsevent_ready", null, prefs.getString("id"), true,
       true, true, true, true);
@@ -73,6 +79,7 @@ RiseVision.ImageFolder = (function (gadgets) {
     "pause": pause,
     "stop": stop,
     "setParams": setParams,
-    "initSlider": initSlider
+    "initSlider": initSlider,
+    "refreshSlider": refreshSlider
   };
 })(gadgets);

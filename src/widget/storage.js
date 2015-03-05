@@ -4,7 +4,8 @@ RiseVision.ImageFolder = RiseVision.ImageFolder || {};
 RiseVision.ImageFolder.Storage = function (params) {
   "use strict";
 
-  var companyId = "";
+  var companyId = "",
+    isLoading = true;
 
   /*
    *  Private Methods
@@ -15,7 +16,13 @@ RiseVision.ImageFolder.Storage = function (params) {
       sortDirection = "";
 
     storage.addEventListener("rise-storage-response", function(e) {
-      RiseVision.ImageFolder.initSlider(e.detail);
+      if (isLoading) {
+        RiseVision.ImageFolder.initSlider(e.detail);
+        isLoading = false;
+      }
+      else {
+        RiseVision.ImageFolder.refreshSlider(e.detail);
+      }
     });
 
     storage.setAttribute("companyId", companyId);

@@ -20,9 +20,14 @@
     RiseVision.ImageFolder.pause();
   }
 
+  function stop() {
+    RiseVision.ImageFolder.stop();
+  }
+
   $(document).ready(function() {
     gadgets.rpc.register("rscmd_play_" + id, play);
     gadgets.rpc.register("rscmd_pause_" + id, pause);
+    gadgets.rpc.register("rscmd_stop_" + id, stop);
 
     gadgets.rpc.register("rsparam_set_" + id, RiseVision.ImageFolder.setParams);
     gadgets.rpc.call("", "rsparam_get", null, id, ["additionalParams"]);

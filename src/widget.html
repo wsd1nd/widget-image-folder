@@ -18,13 +18,10 @@
 </head>
 
 <body>
-  <rise-storage></rise-storage>
+  <rise-storage refresh="15"></rise-storage>
 
   <div id="container">
     <div class="tp-banner-container">
-      <div class="tp-banner">
-        <ul></ul>
-      </div>
     </div>
   </div>
 
@@ -43,6 +40,8 @@
   <!-- endbuild -->
 
   <!-- build:js js/widget.min.js -->
+  <script src="components/underscore/underscore-min.js"></script>
+  <script src="components/widget-common/dist/common.js"></script>
   <script src="config/config.js"></script>
   <script src="widget/image-folder.js"></script>
   <script src="widget/slider.js"></script>
