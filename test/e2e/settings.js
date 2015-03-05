@@ -10,8 +10,8 @@
   var expect = chai.expect;
 
   describe("Image Folder Settings - e2e Testing", function() {
-    var validUrl = "https://www.googleapis.com/storage/v1/b/risemedialibrary-xxx/o?prefix=images%2F",
-      invalidUrl = "https://www.googleapis.com/storage/v1/b/risemedialibrary-xxx/o?prefix=";
+    var validUrl = "https://www.googleapis.com/storage/v1/b/risemedialibrary-abc123/o?prefix=images%2F",
+      invalidUrl = "https://www.googleapis.com/storage/v1/b/risemedialibrary-abc123/o?prefix=";
 
     beforeEach(function () {
       browser.get("/src/settings-e2e.html");
@@ -206,6 +206,7 @@
           "additionalParams": {
             "url": validUrl,
             "storage": {
+              "companyId": "abc123",
               "folder": "images/",
               "fileName": ""
             },

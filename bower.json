@@ -1,6 +1,6 @@
 {
   "name": "widget-image-folder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/Rise-Vision/widget-image-folder",
   "description": "Rise Vision Image Folder Widget",
   "main": "src/settings.html",
@@ -28,7 +28,7 @@
     "underscore": "~1.8.2",
     "widget-common": "https://github.com/Rise-Vision/widget-common.git#0.1.3",
     "widget-settings-ui-components": "https://github.com/Rise-Vision/widget-settings-ui-components.git#0.1.10",
-    "widget-settings-ui-core": "https://github.com/Rise-Vision/widget-settings-ui-core.git#0.1.10",
+    "widget-settings-ui-core": "https://github.com/Rise-Vision/widget-settings-ui-core.git#0.1.11",
     "webcomponentsjs": "~0.5.4"
   },
   "resolutions": {

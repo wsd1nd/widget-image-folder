@@ -14,14 +14,10 @@ RiseVision.ImageFolder = (function (gadgets) {
    *  Private Methods
    */
   function init() {
-    var id = prefs.getString("id");
-
     params.width = prefs.getInt("rsW");
     params.height = prefs.getInt("rsH");
     storage = new RiseVision.ImageFolder.Storage(params);
-
-    gadgets.rpc.register("rsparam_set_" + id, storage.getCompanyId);
-    gadgets.rpc.call("", "rsparam_get", null, id, "companyId");
+    storage.init();
   }
 
   /*

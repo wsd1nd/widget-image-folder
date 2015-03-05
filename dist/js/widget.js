@@ -151,14 +151,10 @@ RiseVision.ImageFolder = (function (gadgets) {
    *  Private Methods
    */
   function init() {
-    var id = prefs.getString("id");
-
     params.width = prefs.getInt("rsW");
     params.height = prefs.getInt("rsH");
     storage = new RiseVision.ImageFolder.Storage(params);
-
-    gadgets.rpc.register("rsparam_set_" + id, storage.getCompanyId);
-    gadgets.rpc.call("", "rsparam_get", null, id, "companyId");
+    storage.init();
   }
 
   /*
@@ -384,18 +380,28 @@ RiseVision.ImageFolder.Slider = function (params) {
 
   /*
    *  Public Methods
+   *  TODO: Test what happens when folder isn't found.
    */
   function init(urls) {
     var tpBannerContainer = document.querySelector(".tp-banner-container"),
       fragment = document.createDocumentFragment(),
       tpBanner = document.createElement("div"),
       ul = document.createElement("ul");
+<<<<<<< HEAD
 
     tpBanner.setAttribute("class", "tp-banner");
     tpBanner.appendChild(ul);
     fragment.appendChild(tpBanner);
     tpBannerContainer.appendChild(fragment);
 
+=======
+
+    tpBanner.setAttribute("class", "tp-banner");
+    tpBanner.appendChild(ul);
+    fragment.appendChild(tpBanner);
+    tpBannerContainer.appendChild(fragment);
+
+>>>>>>> 24ba528... Use company ID in Storage URL
     currentUrls = urls;
     addSlides();
 
@@ -471,11 +477,15 @@ RiseVision.ImageFolder = RiseVision.ImageFolder || {};
 RiseVision.ImageFolder.Storage = function (params) {
   "use strict";
 
+<<<<<<< HEAD
   var companyId = "",
     isLoading = true;
+=======
+  var isLoading = true;
+>>>>>>> 24ba528... Use company ID in Storage URL
 
   /*
-   *  Private Methods
+   *  Public Methods
    */
   function init() {
     var storage = document.querySelector("rise-storage"),
@@ -492,7 +502,7 @@ RiseVision.ImageFolder.Storage = function (params) {
       }
     });
 
-    storage.setAttribute("companyId", companyId);
+    storage.setAttribute("companyId", params.storage.companyId);
     storage.setAttribute("folder", params.storage.folder);
 
     // Sorting
@@ -526,18 +536,8 @@ RiseVision.ImageFolder.Storage = function (params) {
     storage.go();
   }
 
-  /*
-   *  Public Methods
-   */
-  function getCompanyId(name, value) {
-    if (name === "companyId") {
-      companyId = value;
-      init();
-    }
-  }
-
   return {
-    "getCompanyId": getCompanyId
+    "init": init
   };
 };
 
