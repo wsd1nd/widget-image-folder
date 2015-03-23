@@ -488,7 +488,6 @@ angular.module('pascalprecht.translate').provider('$translate', ['$STORAGE_KEY',
         return $fallbackLanguage[0];
       } else {
         return $fallbackLanguage;
-<<<<<<< HEAD
       }
     }
   };
@@ -516,286 +515,6 @@ angular.module('pascalprecht.translate').provider('$translate', ['$STORAGE_KEY',
       $uses = langKey;
       return this;
     }
-    return $uses;
-  };
-
- /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#storageKey
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Tells the module which key must represent the choosed language by a user in the storage.
-   *
-   * @param {string} key A key for the storage.
-   */
-  var storageKey = function(key) {
-    if (!key) {
-      if ($storagePrefix) {
-        return $storagePrefix + $storageKey;
-      }
-      return $storageKey;
-    }
-    $storageKey = key;
-  };
-
-  this.storageKey = storageKey;
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#useUrlLoader
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Tells angular-translate to use `$translateUrlLoader` extension service as loader.
-   *
-   * @param {string} url Url
-   * @param {Object=} options Optional configuration object
-   */
-  this.useUrlLoader = function (url, options) {
-    return this.useLoader('$translateUrlLoader', angular.extend({ url: url }, options));
-  };
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#useStaticFilesLoader
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Tells angular-translate to use `$translateStaticFilesLoader` extension service as loader.
-   *
-   * @param {Object=} options Optional configuration object
-   */
-  this.useStaticFilesLoader = function (options) {
-    return this.useLoader('$translateStaticFilesLoader', options);
-  };
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#useLoader
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Tells angular-translate to use any other service as loader.
-   *
-   * @param {string} loaderFactory Factory name to use
-   * @param {Object=} options Optional configuration object
-   */
-  this.useLoader = function (loaderFactory, options) {
-    $loaderFactory = loaderFactory;
-    $loaderOptions = options || {};
-    return this;
-  };
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#useLocalStorage
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Tells angular-translate to use `$translateLocalStorage` service as storage layer.
-   *
-   */
-  this.useLocalStorage = function () {
-    return this.useStorage('$translateLocalStorage');
-  };
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#useCookieStorage
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Tells angular-translate to use `$translateCookieStorage` service as storage layer.
-   */
-  this.useCookieStorage = function () {
-    return this.useStorage('$translateCookieStorage');
-  };
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#useStorage
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Tells angular-translate to use custom service as storage layer.
-   */
-  this.useStorage = function (storageFactory) {
-    $storageFactory = storageFactory;
-    return this;
-  };
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#storagePrefix
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Sets prefix for storage key.
-   *
-   * @param {string} prefix Storage key prefix
-   */
-  this.storagePrefix = function (prefix) {
-    if (!prefix) {
-      return prefix;
-    }
-    $storagePrefix = prefix;
-    return this;
-  };
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#useMissingTranslationHandlerLog
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Tells angular-translate to use built-in log handler when trying to translate
-   * a translation Id which doesn't exist.
-   *
-   * This is actually a shortcut method for `useMissingTranslationHandler()`.
-   *
-   */
-  this.useMissingTranslationHandlerLog = function () {
-    return this.useMissingTranslationHandler('$translateMissingTranslationHandlerLog');
-  };
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#useMissingTranslationHandler
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Expects a factory name which later gets instantiated with `$injector`.
-   * This method can be used to tell angular-translate to use a custom
-   * missingTranslationHandler. Just build a factory which returns a function
-   * and expects a translation id as argument.
-   *
-   * Example:
-   * <pre>
-   *  app.config(function ($translateProvider) {
-   *    $translateProvider.useMissingTranslationHandler('customHandler');
-   *  });
-   *
-   *  app.factory('customHandler', function (dep1, dep2) {
-   *    return function (translationId) {
-   *      // something with translationId and dep1 and dep2
-   *    };
-   *  });
-   * </pre>
-   *
-   * @param {string} factory Factory name
-   */
-  this.useMissingTranslationHandler = function (factory) {
-    $missingTranslationHandlerFactory = factory;
-    return this;
-  };
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#usePostCompiling
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * If post compiling is enabled, all translated values will be processed
-   * again with AngularJS' $compile.
-   *
-   * Example:
-   * <pre>
-   *  app.config(function ($translateProvider) {
-   *    $translateProvider.usePostCompiling(true);
-   *  });
-   * </pre>
-   *
-   * @param {string} factory Factory name
-   */
-  this.usePostCompiling = function (value) {
-    $postCompilingEnabled = !(!value);
-    return this;
-=======
-      }
-    }
->>>>>>> 24ba528... Use company ID in Storage URL
-  };
-
-  /**
-   * @ngdoc function
-<<<<<<< HEAD
-   * @name pascalprecht.translate.$translateProvider#determinePreferredLanguage
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Tells angular-translate to try to determine on its own which language key
-   * to set as preferred language. When `fn` is given, angular-translate uses it
-   * to determine a language key, otherwise it uses the built-in `getLocale()`
-   * method.
-   *
-   * The `getLocale()` returns a language key in the format `[lang]_[country]` or
-   * `[lang]` depending on what the browser provides.
-   *
-   * Use this method at your own risk, since not all browsers return a valid
-   * locale.
-   *
-   * @param {object=} fn Function to determine a browser's locale
-   */
-  this.determinePreferredLanguage = function (fn) {
-
-    var locale = (fn && angular.isFunction(fn)) ? fn() : getLocale();
-
-    if (!$availableLanguageKeys.length) {
-      $preferredLanguage = locale;
-    } else {
-      $preferredLanguage = negotiateLocale(locale);
-    }
-
-    return this;
-  };
-
-  /**
-   * @ngdoc function
-   * @name pascalprecht.translate.$translateProvider#registerAvailableLanguageKeys
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Registers a set of language keys the app will work with. Use this method in
-   * combination with
-   * {@link pascalprecht.translate.$translateProvider#determinePreferredLanguage determinePreferredLanguage}.
-   * When available languages keys are registered, angular-translate
-   * tries to find the best fitting language key depending on the browsers locale,
-   * considering your language key convention.
-   *
-   * @param {object} languageKeys Array of language keys the your app will use
-   * @param {object=} aliases Alias map.
-   */
-  this.registerAvailableLanguageKeys = function (languageKeys, aliases) {
-    if (languageKeys) {
-      $availableLanguageKeys = languageKeys;
-      if (aliases) {
-        $languageKeyAliases = aliases;
-=======
-   * @name pascalprecht.translate.$translateProvider#use
-   * @methodOf pascalprecht.translate.$translateProvider
-   *
-   * @description
-   * Set which translation table to use for translation by given language key. When
-   * trying to 'use' a language which isn't provided, it'll throw an error.
-   *
-   * You actually don't have to use this method since `$translateProvider#preferredLanguage`
-   * does the job too.
-   *
-   * @param {string} langKey A language key.
-   */
-  this.use = function (langKey) {
-    if (langKey) {
-      if (!$translationTable[langKey] && (!$loaderFactory)) {
-        // only throw an error, when not loading translation data asynchronously
-        throw new Error("$translateProvider couldn't find translationTable for langKey: '" + langKey + "'");
->>>>>>> 24ba528... Use company ID in Storage URL
-      }
-      $uses = langKey;
-      return this;
-    }
-<<<<<<< HEAD
-=======
     return $uses;
   };
 
@@ -1049,7 +768,6 @@ angular.module('pascalprecht.translate').provider('$translate', ['$STORAGE_KEY',
       }
       return this;
     }
->>>>>>> 24ba528... Use company ID in Storage URL
     return $availableLanguageKeys;
   };
 
@@ -1936,7 +1654,6 @@ angular.module('pascalprecht.translate').provider('$translate', ['$STORAGE_KEY',
             translations(data.key, data.table);
             if (langKey === $uses) {
               useLanguage($uses);
-<<<<<<< HEAD
             }
             resolve();
           }, reject);
@@ -2009,95 +1726,6 @@ angular.module('pascalprecht.translate').provider('$translate', ['$STORAGE_KEY',
           if ($translationTable[possibleLangKey]) {
             if (typeof $translationTable[possibleLangKey][translationId] !== 'undefined') {
               result = determineTranslationInstant(translationId, interpolateParams, interpolationId);
-=======
->>>>>>> 24ba528... Use company ID in Storage URL
-            }
-            resolve();
-          }, reject);
-
-        } else {
-          reject();
-        }
-        return deferred.promise;
-      };
-
-      /**
-       * @ngdoc function
-       * @name pascalprecht.translate.$translate#instant
-       * @methodOf pascalprecht.translate.$translate
-       *
-       * @description
-       * Returns a translation instantly from the internal state of loaded translation. All rules
-       * regarding the current language, the preferred language of even fallback languages will be
-       * used except any promise handling. If a language was not found, an asynchronous loading
-       * will be invoked in the background.
-       *
-       * @param {string|array} translationId A token which represents a translation id
-       *                                     This can be optionally an array of translation ids which
-       *                                     results that the function's promise returns an object where
-       *                                     each key is the translation id and the value the translation.
-       * @param {object} interpolateParams Params
-       * @param {string} interpolationId The id of the interpolation to use
-       *
-       * @return {string} translation
-       */
-      $translate.instant = function (translationId, interpolateParams, interpolationId) {
-
-        // Detect undefined and null values to shorten the execution and prevent exceptions
-        if (translationId === null || angular.isUndefined(translationId)) {
-          return translationId;
-        }
-
-        // Duck detection: If the first argument is an array, a bunch of translations was requested.
-        // The result is an object.
-        if (angular.isArray(translationId)) {
-          var results = {};
-          for (var i = 0, c = translationId.length; i < c; i++) {
-            results[translationId[i]] = $translate.instant(translationId[i], interpolateParams, interpolationId);
-          }
-<<<<<<< HEAD
-          if (typeof result !== 'undefined') {
-            break;
-          }
-        }
-
-        if (!result && result !== '') {
-          // Return translation of default interpolator if not found anything.
-          result = defaultInterpolator.interpolate(translationId, interpolateParams);
-          if ($missingTranslationHandlerFactory && !pendingLoader) {
-            result = translateByHandler(translationId);
-          }
-        }
-
-=======
-          return results;
-        }
-
-        // We discarded unacceptable values. So we just need to verify if translationId is empty String
-        if (angular.isString(translationId) && translationId.length < 1) {
-          return translationId;
-        }
-
-        // trim off any whitespace
-        if (translationId) {
-          translationId = trim.apply(translationId);
-        }
-
-        var result, possibleLangKeys = [];
-        if ($preferredLanguage) {
-          possibleLangKeys.push($preferredLanguage);
-        }
-        if ($uses) {
-          possibleLangKeys.push($uses);
-        }
-        if ($fallbackLanguage && $fallbackLanguage.length) {
-          possibleLangKeys = possibleLangKeys.concat($fallbackLanguage);
-        }
-        for (var j = 0, d = possibleLangKeys.length; j < d; j++) {
-          var possibleLangKey = possibleLangKeys[j];
-          if ($translationTable[possibleLangKey]) {
-            if (typeof $translationTable[possibleLangKey][translationId] !== 'undefined') {
-              result = determineTranslationInstant(translationId, interpolateParams, interpolationId);
             }
           }
           if (typeof result !== 'undefined') {
@@ -2113,7 +1741,6 @@ angular.module('pascalprecht.translate').provider('$translate', ['$STORAGE_KEY',
           }
         }
 
->>>>>>> 24ba528... Use company ID in Storage URL
         return result;
       };
 
@@ -6932,7 +6559,12 @@ angular.module("risevision.widget.common.storage-selector")
     $scope.storageUrl = storageUrl;
 
     $window.addEventListener("message", function (event) {
-      if (event.origin !== "http://storage.risevision.com") { return; }
+      var storageTest = "storage-stage-rva-test.risevision.com",
+        storageProd = "storage.risevision.com";
+
+      if (event.origin.indexOf(storageTest) === -1 && event.origin.indexOf(storageProd) === -1) {
+        return;
+      }
 
       if (Array.isArray(event.data)) {
         $modalInstance.close(event.data);
@@ -7260,11 +6892,8 @@ app.run(["$templateCache", function($templateCache) {
 
 if (typeof angular !== "undefined") {
   angular.module("risevision.common.i18n.config", [])
-    .constant("LOCALES_PREFIX", "components/rv-common-i18n/dist/locales/translation_")
+    .constant("LOCALES_PREFIX", "locales/translation_")
     .constant("LOCALES_SUFIX", ".json");
-
-  angular.module("risevision.widget.common.storage-selector.config")
-    .value("STORAGE_MODAL", "https://storage-stage.risevision.com/rva-test/dist/storage-modal.html#/files/");
 }
 
 angular.module("risevision.widget.imageFolder.settings", [
@@ -7442,10 +7071,7 @@ angular.module("risevision.widget.common")
           str = decodeURIComponent(str.slice(str.indexOf("/") + 1));
           arr = str.split("/");
 
-<<<<<<< HEAD
-=======
           storage.companyId = getCompanyId(url);
->>>>>>> 24ba528... Use company ID in Storage URL
           storage.fileName = arr.pop();
           storage.folder = arr.length > 0 ? arr.join("/") : "";
 
@@ -7461,10 +7087,7 @@ angular.module("risevision.widget.common")
             pair = params[i].split("=");
 
             if (pair[0] === "prefix" && typeof pair[1] !== "undefined" && pair[1] !== "") {
-<<<<<<< HEAD
-=======
               storage.companyId = getCompanyId(url);
->>>>>>> 24ba528... Use company ID in Storage URL
               storage.folder = decodeURIComponent(pair[1]);
               storage.fileName = "";
               break;
