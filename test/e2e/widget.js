@@ -17,6 +17,13 @@ casper.test.begin("Image Folder Widget - e2e Testing", {
     });
 
     casper.then(function () {
+      casper.evaluate(function (){
+        var evt = document.createEvent("CustomEvent");
+
+        evt.initCustomEvent("polymer-ready", false, false);
+        window.dispatchEvent(evt);
+      });
+
       casper.waitFor(function waitForUI() {
         return this.evaluate(function loadSlides() {
           return document.querySelector(".tp-revslider-mainul .tp-revslider-slidesli:nth-child(1)").style.visibility = "inherit";

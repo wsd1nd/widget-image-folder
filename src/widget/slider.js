@@ -175,6 +175,7 @@ RiseVision.ImageFolder.Slider = function (params) {
     tpBannerContainer.appendChild(fragment);
 
     currentUrls = urls;
+
     addSlides();
 
     $api = $(".tp-banner").revolution({

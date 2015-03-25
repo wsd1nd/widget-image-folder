@@ -15,12 +15,18 @@ RiseVision.ImageFolder.Storage = function (params) {
       sortDirection = "";
 
     storage.addEventListener("rise-storage-response", function(e) {
+      var urls = [];
+
+      e.detail.files.forEach(function(file) {
+        urls.push(file.url);
+      });
+
       if (isLoading) {
-        RiseVision.ImageFolder.initSlider(e.detail);
+        RiseVision.ImageFolder.initSlider(urls);
         isLoading = false;
       }
       else {
-        RiseVision.ImageFolder.refreshSlider(e.detail);
+        RiseVision.ImageFolder.refreshSlider(urls);
       }
     });
 

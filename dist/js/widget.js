@@ -128,11 +128,8 @@ RiseVision.Common.Utilities = (function() {
 
 if (typeof angular !== "undefined") {
   angular.module("risevision.common.i18n.config", [])
-    .constant("LOCALES_PREFIX", "components/rv-common-i18n/dist/locales/translation_")
+    .constant("LOCALES_PREFIX", "locales/translation_")
     .constant("LOCALES_SUFIX", ".json");
-
-  angular.module("risevision.widget.common.storage-selector.config")
-    .value("STORAGE_MODAL", "https://storage-stage.risevision.com/rva-test/dist/storage-modal.html#/files/");
 }
 
 /* global gadgets */
@@ -387,22 +384,14 @@ RiseVision.ImageFolder.Slider = function (params) {
       fragment = document.createDocumentFragment(),
       tpBanner = document.createElement("div"),
       ul = document.createElement("ul");
-<<<<<<< HEAD
 
     tpBanner.setAttribute("class", "tp-banner");
     tpBanner.appendChild(ul);
     fragment.appendChild(tpBanner);
     tpBannerContainer.appendChild(fragment);
 
-=======
-
-    tpBanner.setAttribute("class", "tp-banner");
-    tpBanner.appendChild(ul);
-    fragment.appendChild(tpBanner);
-    tpBannerContainer.appendChild(fragment);
-
->>>>>>> 24ba528... Use company ID in Storage URL
     currentUrls = urls;
+
     addSlides();
 
     $api = $(".tp-banner").revolution({
@@ -477,12 +466,7 @@ RiseVision.ImageFolder = RiseVision.ImageFolder || {};
 RiseVision.ImageFolder.Storage = function (params) {
   "use strict";
 
-<<<<<<< HEAD
-  var companyId = "",
-    isLoading = true;
-=======
   var isLoading = true;
->>>>>>> 24ba528... Use company ID in Storage URL
 
   /*
    *  Public Methods
@@ -493,12 +477,18 @@ RiseVision.ImageFolder.Storage = function (params) {
       sortDirection = "";
 
     storage.addEventListener("rise-storage-response", function(e) {
+      var urls = [];
+
+      e.detail.files.forEach(function(file) {
+        urls.push(file.url);
+      });
+
       if (isLoading) {
-        RiseVision.ImageFolder.initSlider(e.detail);
+        RiseVision.ImageFolder.initSlider(urls);
         isLoading = false;
       }
       else {
-        RiseVision.ImageFolder.refreshSlider(e.detail);
+        RiseVision.ImageFolder.refreshSlider(urls);
       }
     });
 
@@ -572,8 +562,10 @@ RiseVision.ImageFolder.Storage = function (params) {
     gadgets.rpc.register("rscmd_pause_" + id, pause);
     gadgets.rpc.register("rscmd_stop_" + id, stop);
 
-    gadgets.rpc.register("rsparam_set_" + id, RiseVision.ImageFolder.setParams);
-    gadgets.rpc.call("", "rsparam_get", null, id, ["additionalParams"]);
+    window.addEventListener("polymer-ready", function() {
+      gadgets.rpc.register("rsparam_set_" + id, RiseVision.ImageFolder.setParams);
+      gadgets.rpc.call("", "rsparam_get", null, id, ["additionalParams"]);
+    });
   });
 })(window, document, gadgets);
 

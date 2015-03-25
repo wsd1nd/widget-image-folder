@@ -29,7 +29,9 @@
     gadgets.rpc.register("rscmd_pause_" + id, pause);
     gadgets.rpc.register("rscmd_stop_" + id, stop);
 
-    gadgets.rpc.register("rsparam_set_" + id, RiseVision.ImageFolder.setParams);
-    gadgets.rpc.call("", "rsparam_get", null, id, ["additionalParams"]);
+    window.addEventListener("polymer-ready", function() {
+      gadgets.rpc.register("rsparam_set_" + id, RiseVision.ImageFolder.setParams);
+      gadgets.rpc.call("", "rsparam_get", null, id, ["additionalParams"]);
+    });
   });
 })(window, document, gadgets);
