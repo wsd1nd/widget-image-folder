@@ -3,20 +3,19 @@
 (function () {
   "use strict";
 
+  var bump = require("gulp-bump");
+  var del = require("del");
+  var factory = require("widget-tester").gulpTaskFactory;
   var gulp = require("gulp");
   var gutil = require("gulp-util");
-  var rimraf = require("gulp-rimraf");
-  var concat = require("gulp-concat");
-  var bump = require("gulp-bump");
   var jshint = require("gulp-jshint");
   var minifyCSS = require("gulp-minify-css");
-  var usemin = require("gulp-usemin");
-  var uglify = require("gulp-uglify");
-  var runSequence = require("run-sequence");
   var path = require("path");
   var rename = require("gulp-rename");
-  var factory = require("widget-tester").gulpTaskFactory;
+  var runSequence = require("run-sequence");
   var sourcemaps = require("gulp-sourcemaps");
+  var uglify = require("gulp-uglify");
+  var usemin = require("gulp-usemin");
 
   var appJSFiles = [
       "src/**/*.js",
@@ -27,13 +26,12 @@
       "./src/widget.html"
     ];
 
-  gulp.task("clean", function () {
-    return gulp.src("dist", {read: false})
-      .pipe(rimraf());
+  gulp.task("clean", function (cb) {
+    del(["./dist/**"], cb);
   });
 
   gulp.task("config", function() {
-    var env = process.env.NODE_ENV || "dev";
+    var env = process.env.NODE_ENV || "prod";
     gutil.log("Environment is", env);
 
     return gulp.src(["./src/config/" + env + ".js"])
